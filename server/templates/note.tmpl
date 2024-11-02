@@ -1,0 +1,9 @@
+---
+title: {{ .Title }}
+tags:{{ if not .Tags }} []{{end}}
+{{- range .Tags }}
+  - {{ . -}}
+{{ end }}
+lastModified: {{ .LastModified }}
+---
+{{ .Content }}

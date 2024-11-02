@@ -1,0 +1,70 @@
+basePath: /api
+definitions:
+  httputil.HTTPError:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+  model.AddNoteInput:
+    properties:
+      content:
+        type: string
+      title:
+        type: string
+    type: object
+  model.Note:
+    properties:
+      content:
+        type: string
+      lastModified:
+        type: string
+      tags:
+        items:
+          type: string
+        type: array
+      title:
+        type: string
+    type: object
+  model.OrderType:
+    enum:
+    - asc
+    - desc
+    type: string
+    x-enum-varnames:
+    - AscOrderType
+    - DescOrderType
+info:
+  contact: {}
+  description: Note management app
+  title: quicknotes API
+  version: "1.0"
+paths:
+  /note:
+    get:
+      description: create note
+      parameters:
+      - description: Add note
+        in: body
+        name: note
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddNoteInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Note'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: Create note
+      tags:
+      - notes
+swagger: "2.0"
