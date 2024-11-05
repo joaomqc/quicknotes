@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"cmp"
 	"html/template"
-	"io/fs"
 	"os"
 	"path/filepath"
 	"quicknotes/model"
@@ -234,15 +233,15 @@ func (h FileHandler) getNoteMetadata(file string) (*model.PartialNote, error) {
 
 func (h FileHandler) listFiles() ([]string, error) {
 	files := []string{}
-	err := filepath.WalkDir(filesDir, func(path string, d fs.DirEntry, err error) error {
+	entries, err := os.ReadDir(filesDir)
+	for _, entry := range entries {
 		if err != nil {
-			return err
+			return nil, err
 		}
-		if !d.IsDir() && strings.HasSuffix(d.Name(), ".md") {
-			files = append(files, path)
+		if !entry.IsDir() && strings.HasSuffix(entry.Name(), ".md") {
+			files = append(files, entry.Name())
 		}
-		return nil
-	})
+	}
 	if err != nil {
 		return nil, err
 	}
