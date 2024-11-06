@@ -11,6 +11,10 @@ definitions:
     properties:
       content:
         type: string
+      tags:
+        items:
+          type: string
+        type: array
       title:
         type: string
     type: object
@@ -41,7 +45,7 @@ info:
   title: quicknotes API
   version: "1.0"
 paths:
-  /note:
+  /notes:
     get:
       description: create note
       parameters:
@@ -65,6 +69,21 @@ paths:
           schema:
             $ref: '#/definitions/httputil.HTTPError'
       summary: Create note
+      tags:
+      - notes
+  /notes/tags:
+    get:
+      description: get note tags
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              type: string
+            type: array
+      summary: Get note tags
       tags:
       - notes
 swagger: "2.0"

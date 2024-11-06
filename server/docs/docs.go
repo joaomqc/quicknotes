@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/note": {
+        "/notes": {
             "get": {
                 "description": "create note",
                 "produces": [
@@ -54,6 +54,29 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/notes/tags": {
+            "get": {
+                "description": "get note tags",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "notes"
+                ],
+                "summary": "Get note tags",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -73,6 +96,12 @@ const docTemplate = `{
             "properties": {
                 "content": {
                     "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
                 "title": {
                     "type": "string"
