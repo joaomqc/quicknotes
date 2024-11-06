@@ -9,8 +9,8 @@ describe('NavBar', () => {
       global: {
         stubs: {
           RouterLink: RouterLinkStub,
-        }
-      }
+        },
+      },
     })
     expect(wrapper.text()).toContain('quicknotes')
   })
